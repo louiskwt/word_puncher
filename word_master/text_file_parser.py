@@ -1,4 +1,5 @@
 # Parser for files
+import os
 
 class TextFileParser:
     def __init__(self, path):
@@ -6,5 +7,5 @@ class TextFileParser:
     
     def parse_file(self):
         with open(self.path) as file:
-            return [line.rstrip('\n') for line in file]
+            return [line.rstrip('\n') for line in file if line.rstrip('\n')]
 
