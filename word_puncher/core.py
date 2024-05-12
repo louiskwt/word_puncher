@@ -11,5 +11,5 @@ if __name__ == '__main__':
     data = parser.parse_file()
     output, answers = punch_out_words(data)
     print(output)
-    print("________________Answer Keys____________________________________")
+    print(("*" * 40) +  "Answer Keys" + ("*" * 40))
     print((", ".join(answers)))
