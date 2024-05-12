@@ -2,9 +2,9 @@ import random, string
 
 COMMON_WORDS = {
     'articles': ['a', 'an', 'the'],
-    'personal_pronouns': ['he', 'i', 'she', 'they', 'we', 'you', "he's", "i'm", "she's", "they're", "we're", "you're"],
-    'demonstrative_pronouns': ['that', 'these', 'this', 'those'],
-    'interrogative_pronouns': ['what', 'which', 'who', 'whom', 'whose']
+    'personal_pronouns': ['he', 'i', 'she', 'they', 'we', 'you', "he'd", "she'd", "i'd", "they'd", "we'd", "you'd", "he's", "i'm", "she's", "they're", "we're", "you're", "i've", "they've", "we've", "you've"],
+    'demonstrative_pronouns': ['that', 'these', 'this', 'those', "that's", "these're", "this's", "those're", "that'd", "these'd", "this'd", "those'd"],
+    'interrogative_pronouns': ['what', 'which', 'who', 'whom', 'whose', "what'd", "which'd", "who'd", "what's", "which's", "who's", "what're", "which're", "who're", "what've", "which've", "who've"]
 }
 
 def punch_out_words(lines):
