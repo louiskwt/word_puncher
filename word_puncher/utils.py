@@ -13,8 +13,15 @@ def punch_out_words(lines):
         word_lst = lines[index].split()
         if len(word_lst) > 2:
             random_word_index = random.randint(2, len(word_lst)-1)
-            answer_keys.append(word_lst[random_word_index])
-            word_lst[random_word_index] = replace_word_with_blank(word_lst[random_word_index])
+            target_word = word_lst[random_word_index]
+            is_common_word = check_for_common_words(strip_punctuations(target_word))
+            while is_common_word:
+                random_word_index = random.randint(2, len(word_lst)-1)
+                target_word = word_lst[random_word_index]
+                is_common_word = check_for_common_words(strip_punctuations(target_word)) 
+            if not is_common_word:
+                answer_keys.append(target_word)
+                word_lst[random_word_index] = replace_word_with_blank(word_lst[random_word_index])
         lines[index] = " ".join(word_lst)
     return [lines, answer_keys]
 

@@ -10,7 +10,6 @@ if __name__ == '__main__':
     parser = TextFileParser(str(DIR) + '/' + filename)
     data = parser.parse_file()
     output, answers = punch_out_words(data)
-    for line in output:
-        print(output)
+    print(output)
     print("________________Answer Keys____________________________________")
     print((", ".join(answers)))
