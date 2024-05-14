@@ -26,6 +26,8 @@ def punch_out_words(lines):
     return [lines, answer_keys]
 
 def replace_word_with_blank(word):
+    stripped_word = strip_punctuations(word)
+
     return "_" * len(word) * 2
 
 def strip_punctuations(word):
@@ -45,6 +47,31 @@ def strip_punctuations(word):
         if new_word[-1] in string.punctuation:
             new_word = new_word[:-1]
     return new_word
+
+def find_punctuation(word):
+    """
+    A function that extract punctuation at the beginning and end of a word
+    >>> word1 = "'(Hey!)'"
+    >>> punctuations = find_punctuation(word1)
+    >>> punctuations["front"]
+    "'("
+    >>> punctuations["end"]
+    "!)'" . # test failed!
+    """
+    punctuation_table = {
+        "front": "",
+        "end": "",
+    }
+    target = word
+    while target[0] in string.punctuation or target[-1] in string.punctuation:
+        if target[0] in string.punctuation:
+            punctuation_table["front"] += target[0]
+            target = target[1:]
+        if target[-1] in string.punctuation:
+            punctuation_table["end"] += target[-1]
+            target = target[:-1]
+    punctuation_table["end"][::-1]
+    return punctuation_table
 
 
 def check_for_common_words(word):
