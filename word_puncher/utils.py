@@ -20,7 +20,7 @@ def punch_out_words(lines):
                 target_word = word_lst[random_word_index]
                 is_common_word = check_for_common_words(strip_punctuations(target_word)) 
             if not is_common_word:
-                answer_keys.append(target_word)
+                answer_keys.append(strip_punctuations(target_word))
                 word_lst[random_word_index] = replace_word_with_blank(word_lst[random_word_index])
         lines[index] = " ".join(word_lst)
     return [lines, answer_keys]
