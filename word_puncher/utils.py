@@ -56,12 +56,9 @@ def find_punctuation(word):
     >>> punctuations["front"]
     "'("
     >>> punctuations["end"]
-    "!)'" . # test failed!
+    "!)'"
     """
-    punctuation_table = {
-        "front": "",
-        "end": "",
-    }
+    punctuation_table = { "front": "", "end": "" }
     target = word
     while target[0] in string.punctuation or target[-1] in string.punctuation:
         if target[0] in string.punctuation:
@@ -70,7 +67,7 @@ def find_punctuation(word):
         if target[-1] in string.punctuation:
             punctuation_table["end"] += target[-1]
             target = target[:-1]
-    punctuation_table["end"][::-1]
+    punctuation_table['end'] = punctuation_table["end"][::-1]
     return punctuation_table
 
 
