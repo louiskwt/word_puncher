@@ -26,9 +26,19 @@ def punch_out_words(lines):
     return [lines, answer_keys]
 
 def replace_word_with_blank(word):
+    """
+    A function that replaces word with _____ but keeps the punctuations
+    >>> replace_word_with_blank("Hello!")
+    '__________!'
+    >>> replace_word_with_blank("(Hey!)")
+    '(______!)'
+    """
     stripped_word = strip_punctuations(word)
-
-    return "_" * len(word) * 2
+    punctuations = find_punctuation(word) 
+    if stripped_word != word:
+        return punctuations['front'] + ('_' * len(stripped_word) * 2) + punctuations['end']
+    else:
+        return "_" * len(word) * 2
 
 def strip_punctuations(word):
     """
