@@ -19,4 +19,5 @@ if __name__ == '__main__':
     pdf = PDF_Generator()
     pdf.set_title("Listening Exercise With a Song")
     pdf.print_page_content(output[0], "\n".join(output[1:]))
+    pdf.print_page_content("Answer Keys", "\n".join(answers))
     pdf.output("test.pdf")
