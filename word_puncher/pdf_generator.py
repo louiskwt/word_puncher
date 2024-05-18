@@ -1,6 +1,7 @@
 from fpdf import FPDF
 
 class PDF_Generator(FPDF):
+    """ PDF_Generator handles the pdf generation process """
     def header(self):
         self.set_font("helvetica", "B", 14)
         width = self.get_string_width(self.title) + 6
