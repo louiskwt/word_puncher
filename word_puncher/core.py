@@ -19,5 +19,6 @@ if __name__ == '__main__':
     pdf = PDF_Generator()
     pdf.set_title("Listening Exercise With a Song")
     pdf.print_page_content(output[0], output[1:])
-    pdf.print_as_table("Answer Keys", answers)
+    answer_rows = [tuple(answers[i-4:i]) for i in range(len(answers)) if i != 0 and i % 4 == 0]  
+    pdf.print_as_table("Answer Keys", answer_rows)
     pdf.output("test.pdf")

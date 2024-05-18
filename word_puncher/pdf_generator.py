@@ -38,7 +38,7 @@ class PDF_Generator(FPDF):
         self.set_body_heading(heading)
         data_table = Table()
         for line in text:
-            data_table.add_row((line))
+            data_table.add_row(line)
 
         with self.table() as pdf_table:
             for data_row in data_table.rows:
