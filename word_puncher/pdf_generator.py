@@ -28,6 +28,7 @@ class PDF_Generator(FPDF):
         self.add_page()
         self.set_font("helvetica", size=12)
         self.set_body_heading(heading)
-        self.multi_cell(0, 5, text)
-        self.ln(4)
+        for line in text:
+            self.cell(0, 5, line)
+            self.ln(7.5)
     
