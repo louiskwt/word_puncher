@@ -31,4 +31,28 @@ class PDF_Generator(FPDF):
         for line in text:
             self.cell(0, 5, line)
             self.ln(7.5)
+
+    def print_as_table(self, heading, text):
+        self.add_page()
+        self.set_font("helvetica", size=12)
+        self.set_body_heading(heading)
+        data_table = Table()
+        for line in text:
+            data_table.add_row((line))
+
+        with self.table() as pdf_table:
+            for data_row in data_table.rows:
+                row = pdf_table.row()
+                for datum in data_row:
+                    row.cell(datum) 
+
+
+
+class Table:
+    '''Custom Data Structure for PDF table rows'''
+    empty = ()
+    rows = ()
     
+    def add_row(self, row):
+        assert row is not self.empty
+        self.rows = self.rows + (row, )
