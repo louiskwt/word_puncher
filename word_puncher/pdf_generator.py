@@ -1,4 +1,5 @@
 from fpdf import FPDF
+from fpdf.fonts import FontFace
 
 class PDF_Generator(FPDF):
     """ PDF_Generator handles the pdf generation process """
@@ -40,7 +41,7 @@ class PDF_Generator(FPDF):
         for line in text:
             data_table.add_row(line)
 
-        with self.table() as pdf_table:
+        with self.table(headings_style = FontFace(emphasis=None)) as pdf_table:
             for data_row in data_table.rows:
                 row = pdf_table.row()
                 for datum in data_row:
