@@ -8,17 +8,17 @@ COMMON_WORDS = {
 }
 
 def punch_out_words(lines, word_len=1):
-    answer_keys = []
+    answer_key = []
     for index in range(len(lines)):
         inline_word_lst = lines[index].split()
         if len(inline_word_lst) > 2:
             targets = find_target_words(inline_word_lst, word_len)
-            answer_keys.append(" ".join([targets[k] for k in targets.keys()]))
+            answer_key.append(" ".join([targets[k] for k in targets.keys()]))
             for i, word in targets.items():
                 punctuations_in_word = find_punctuation(inline_word_lst[i])
                 inline_word_lst[i] = punctuations_in_word["front"] + replace_word_with_blank(word) + punctuations_in_word['end']
         lines[index] = " ".join(inline_word_lst)
-    return [lines, answer_keys]
+    return [lines, format_answer_key(answer_key)]
 
 def find_target_words(word_lst, word_len=1, linked=True):
     target_word_index, targets, count = random.randint(2, len(word_lst)-1), {}, 0
@@ -36,6 +36,10 @@ def find_target_words(word_lst, word_len=1, linked=True):
             target_word_index = random.randint(2, len(word_lst)-1) 
         count += 1
     return targets
+
+def format_answer_key(answer_key):
+    """ a util function that format the answer key with index"""
+    return [str(i+1) + "." + " " + answer_key[i] for i in range(len(answer_key))]
 
 def replace_word_with_blank(word):
     """
