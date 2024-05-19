@@ -10,14 +10,14 @@ COMMON_WORDS = {
 def punch_out_words(lines, word_len=1):
     answer_keys = []
     for index in range(len(lines)):
-        word_lst = lines[index].split()
-        if len(word_lst) > 2:
-            targets = find_target_words(word_lst, word_len)
+        inline_word_lst = lines[index].split()
+        if len(inline_word_lst) > 2:
+            targets = find_target_words(inline_word_lst, word_len)
+            answer_keys.append(" ".join([targets[k] for k in targets.keys()]))
             for i, word in targets.items():
-                answer_keys.append(word)
-                punctuations_in_word = find_punctuation(word_lst[i])
-                word_lst[i] = punctuations_in_word["front"] + replace_word_with_blank(word) + punctuations_in_word['end']
-        lines[index] = " ".join(word_lst)
+                punctuations_in_word = find_punctuation(inline_word_lst[i])
+                inline_word_lst[i] = punctuations_in_word["front"] + replace_word_with_blank(word) + punctuations_in_word['end']
+        lines[index] = " ".join(inline_word_lst)
     return [lines, answer_keys]
 
 def find_target_words(word_lst, word_len=1, linked=True):
