@@ -7,23 +7,35 @@ COMMON_WORDS = {
     'interrogative_pronouns': ['what', 'which', 'who', 'whom', 'whose', "what'd", "which'd", "who'd", "what's", "which's", "who's", "what're", "which're", "who're", "what've", "which've", "who've"]
 }
 
-def punch_out_words(lines):
+def punch_out_words(lines, word_len=1):
     answer_keys = []
     for index in range(len(lines)):
         word_lst = lines[index].split()
         if len(word_lst) > 2:
-            random_word_index = random.randint(2, len(word_lst)-1)
-            target_word = word_lst[random_word_index]
-            is_common_word = check_for_common_words(strip_punctuations(target_word))
-            while is_common_word:
-                random_word_index = random.randint(2, len(word_lst)-1)
-                target_word = word_lst[random_word_index]
-                is_common_word = check_for_common_words(strip_punctuations(target_word)) 
-            if not is_common_word:
-                answer_keys.append(strip_punctuations(target_word))
-                word_lst[random_word_index] = replace_word_with_blank(word_lst[random_word_index])
+            targets = find_target_words(word_lst, word_len)
+            for i, word in targets.items():
+                answer_keys.append(word)
+                punctuations_in_word = find_punctuation(word_lst[i])
+                word_lst[i] = punctuations_in_word["front"] + replace_word_with_blank(word) + punctuations_in_word['end']
         lines[index] = " ".join(word_lst)
     return [lines, answer_keys]
+
+def find_target_words(word_lst, word_len=1, linked=True):
+    target_word_index, targets, count = random.randint(2, len(word_lst)-1), {}, 0
+    while count < word_len:
+        target_word = word_lst[target_word_index]
+        in_common_words = check_for_common_words(strip_punctuations(target_word))
+        while in_common_words:
+            target_word_index = random.randint(2, len(word_lst)-1)
+            target_word = word_lst[target_word_index]
+            in_common_words = check_for_common_words(strip_punctuations(target_word))
+        targets[target_word_index] = strip_punctuations(target_word)
+        if linked:
+            target_word_index = target_word_index+1 if target_word_index + 1 != len(word_lst) else target_word_index-1
+        else:
+            target_word_index = random.randint(2, len(word_lst)-1) 
+        count += 1
+    return targets
 
 def replace_word_with_blank(word):
     """
