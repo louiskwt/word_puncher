@@ -18,7 +18,7 @@ def punch_out_words(lines, word_len=1):
             for i, word in targets.items():
                 punctuations_in_word = find_punctuation(inline_word_lst[i])
                 inline_word_lst[i] = punctuations_in_word["front"] + replace_word_with_blank(word) + punctuations_in_word['end'] 
-            inline_word_lst.insert(next(iter(target_keys)), "(" + str(index) +".)")
+            inline_word_lst.insert(min(list(target_keys), key=lambda s: int(s)), "(" + str(index) +".)")
         lines[index] = " ".join(inline_word_lst)
     return [lines, format_answer_key(answer_key)]
 
