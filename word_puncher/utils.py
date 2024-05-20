@@ -13,10 +13,12 @@ def punch_out_words(lines, word_len=1):
         inline_word_lst = lines[index].split()
         if len(inline_word_lst) > 2:
             targets = find_target_words(inline_word_lst, word_len)
-            answer_key.append(" ".join([targets[k] for k in targets.keys()]))
+            target_keys = targets.keys()
+            answer_key.append(" ".join([targets[k] for k in target_keys]))
             for i, word in targets.items():
                 punctuations_in_word = find_punctuation(inline_word_lst[i])
-                inline_word_lst[i] = punctuations_in_word["front"] + replace_word_with_blank(word) + punctuations_in_word['end']
+                inline_word_lst[i] = punctuations_in_word["front"] + replace_word_with_blank(word) + punctuations_in_word['end'] 
+            inline_word_lst.insert(next(iter(target_keys)), "(" + str(index) +".)")
         lines[index] = " ".join(inline_word_lst)
     return [lines, format_answer_key(answer_key)]
 
