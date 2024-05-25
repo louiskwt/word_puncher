@@ -1,10 +1,13 @@
 from fpdf import FPDF
 from fpdf.fonts import FontFace
+import pathlib
+
+DIR = pathlib.Path(__file__).parent.resolve()
 
 class PDF_Generator(FPDF):
     """ PDF_Generator handles the pdf generation process """
     def header(self):
-        self.add_font('roboto', style="B", fname="fonts/Roboto/Roboto-Bold.ttf")
+        self.add_font('roboto', style="B", fname=str(DIR) + "/fonts/Roboto/Roboto-Bold.ttf")
         self.set_font("roboto", "B", 14)
         width = self.get_string_width(self.title) + 6
         self.set_x((210 - width)/2)
@@ -15,7 +18,7 @@ class PDF_Generator(FPDF):
     
     def footer(self):
         self.set_y(-15)
-        self.add_font('roboto', style="", fname="fonts/Roboto/Roboto-Regular.ttf")
+        self.add_font('roboto', style="", fname=str(DIR) + "/fonts/Roboto/Roboto-Regular.ttf")
         self.set_font("roboto", "", 8)
         self.set_text_color(128)
         self.cell(0, 10, f"Page {self.page_no()}/{{nb}}", align="R")
@@ -23,14 +26,14 @@ class PDF_Generator(FPDF):
         self.cell(0, 5, 'Created By kawingz', align="C")
         
     def set_body_heading(self, heading):
-        self.add_font('roboto', style="B", fname="fonts/Roboto/Roboto-Bold.ttf")
+        self.add_font('roboto', style="B", fname=str(DIR) + "/fonts/Roboto/Roboto-Bold.ttf")
         self.set_font("roboto", "", 12)
         self.cell(0, 6, heading, new_x="LMARGIN", new_y="NEXT", align="L")
         self.ln(4)
 
     def print_page_content(self, heading, text):
         self.add_page()
-        self.add_font('roboto', style="", fname="fonts/Roboto/Roboto-Regular.ttf")
+        self.add_font('roboto', style="", fname=str(DIR) + "/fonts/Roboto/Roboto-Regular.ttf")
         self.set_font("roboto", size=12)
         self.set_body_heading(heading)
         for line in text:
@@ -39,7 +42,7 @@ class PDF_Generator(FPDF):
 
     def print_as_table(self, heading, text):
         self.add_page()
-        self.add_font('roboto', style="", fname="fonts/Roboto/Roboto-Regular.ttf")
+        self.add_font('roboto', style="", fname=str(DIR) + "/fonts/Roboto/Roboto-Regular.ttf")
         self.set_font("roboto", size=12)
         self.set_body_heading(heading)
         data_table = Table()
