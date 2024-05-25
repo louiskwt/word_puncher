@@ -18,7 +18,6 @@ class PDF_Generator(FPDF):
     
     def footer(self):
         self.set_y(-15)
-        self.add_font('roboto', style="", fname=str(DIR) + "/fonts/Roboto/Roboto-Regular.ttf")
         self.set_font("roboto", "", 8)
         self.set_text_color(128)
         self.cell(0, 10, f"Page {self.page_no()}/{{nb}}", align="R")
@@ -26,7 +25,6 @@ class PDF_Generator(FPDF):
         self.cell(0, 5, 'Created By kawingz', align="C")
         
     def set_body_heading(self, heading):
-        self.add_font('roboto', style="B", fname=str(DIR) + "/fonts/Roboto/Roboto-Bold.ttf")
         self.set_font("roboto", "", 12)
         self.cell(0, 6, heading, new_x="LMARGIN", new_y="NEXT", align="L")
         self.ln(4)
@@ -37,12 +35,11 @@ class PDF_Generator(FPDF):
         self.set_font("roboto", size=12)
         self.set_body_heading(heading)
         for line in text:
-            self.cell(0, 5, line)
+            self.multi_cell(0, 5, text=line)
             self.ln(7.5)
 
     def print_as_table(self, heading, text):
         self.add_page()
-        self.add_font('roboto', style="", fname=str(DIR) + "/fonts/Roboto/Roboto-Regular.ttf")
         self.set_font("roboto", size=12)
         self.set_body_heading(heading)
         data_table = Table()
