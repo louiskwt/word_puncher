@@ -22,6 +22,17 @@ def punch_out_words(lines, word_len=1):
         lines[index] = " ".join(inline_word_lst)
     return [lines, format_answer_key(answer_key)]
 
+def extract_words(text):
+    """
+        a util function return a list containing list of words for each line
+        >>> text = ["Hello, friends", "How are you?", "Awesome! And you."]
+        >>> extracted_words = extract_words(text) 
+        >>> extracted_words
+        [["Hello", "friends], ["How", "are", "you"], ["Awesome", "And", "you"]]
+    """
+    return [[strip_punctuations(word) for word in line.split(" ")] for line in text]
+
+
 def find_random_words(word_lst, word_len=1, linked=True):
     target_word_index, targets, count = random.randint(2, len(word_lst)-1), {}, 0
     while count < word_len:
