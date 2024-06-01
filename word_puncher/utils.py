@@ -28,7 +28,7 @@ def extract_words(text):
         >>> text = ["Hello, friends", "How are you?", "Awesome! And you."]
         >>> extracted_words = extract_words(text) 
         >>> extracted_words
-        [["Hello", "friends], ["How", "are", "you"], ["Awesome", "And", "you"]]
+        [['Hello', 'friends'], ['How', 'are', 'you'], ['Awesome', 'And', 'you']]
     """
     return [[strip_punctuations(word) for word in line.split(" ")] for line in text]
 
