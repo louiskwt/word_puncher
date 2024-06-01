@@ -22,6 +22,26 @@ def punch_out_words(lines, word_len=1):
         lines[index] = " ".join(inline_word_lst)
     return [lines, format_answer_key(answer_key)]
 
+def generate_exercise_with_answer_keys(lines, selected_words):
+    """
+        a util function that generate the lines with a blank for every selected words
+        >>> text = ["Hello, friends", "How are you?", "Awesome! And you."]
+        >>> selected_words = [["Hello"], ["How", "you"], ["Awesome"]]
+        >>> generate_exercise_with_answer_keys(text, selected_words)
+        [['__________, friends', '______ are ______?', '______________! And you.'], ['1. Hello', '2. How', '3. you', '4. Awesome']]
+    """
+    for index in range(len(lines)):
+        inline_word_lst = lines[index].split()
+        processed_word_lst = []
+        for word in inline_word_lst:
+            if strip_punctuations(word) in selected_words[index]:
+                punctuations_in_word = find_punctuation(word)
+                processed_word_lst.append(punctuations_in_word['front'] + replace_word_with_blank(strip_punctuations(word)) + punctuations_in_word['end'])
+            else:
+                processed_word_lst.append(word)
+        lines[index] = " ".join(processed_word_lst)
+    return [lines, format_answer_key([word for sublist in selected_words for word in sublist])]
+
 def extract_words(text):
     """
         a util function return a list containing list of words for each line
