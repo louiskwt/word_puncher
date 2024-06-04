@@ -12,15 +12,16 @@ class GUI:
         self.selected_words = []
         self.selected_text = []
 
-    def parse_uploaded_file(self, text_data, is_word):
-        if is_word:
-            pattern = r'>(.*?)<'
-            text = [s for s in re.findall(pattern, text_data) if s and s!='\r']
-        else:
-            text = [line.rstrip('\n') for line in text_data if line.rstrip('\n')]
+    def parse_uploaded_file(self, data):
+        print(data)
+        # if is_word:
+        #     pattern = r'>(.*?)<'
+        #     text = [s for s in re.findall(pattern, text_data) if s and s!='\r']
+        # else:
+        #     text = [line.rstrip('\n') for line in text_data if line.rstrip('\n')]
 
-        self.selected_text = text
-        return [[word for word in line] for line in text] 
+        # self.selected_text = text
+        # return [[word for word in line] for line in text] 
 
     def parse_selected_words(self, text_data):
         self.selected_words = text_data
@@ -44,14 +45,15 @@ class HttpHandler(SimpleHTTPRequestHandler):
     def cgiFieldStorageToDict(self, fieldStorage):
         """ Get a plain dictionary rather than the '.value' system used by the
            cgi module's native fieldStorage class. """
-        pass
+        print(fieldStorage.value)
+        return fieldStorage
 
     def do_POST(self):
         path = self.path
         action = {
-                '/ajax/upload-file': '',
-                '/ajax/upload-ans': '',
-                '/ajax/generate-exercise': '',
+                '/upload-file': gui.parse_uploaded_file,
+                '/ajax/upload-ans': gui.parse_selected_words,
+                '/ajax/generate-exercise': gui.generate_exercise,
                 '/ajax/download': '',
                 }.get(path)
         if not action:
@@ -61,14 +63,25 @@ class HttpHandler(SimpleHTTPRequestHandler):
             headers=self.headers,
             environ={'REQUEST_METHOD':'POST',
              'CONTENT_TYPE':self.headers['Content-Type'],
+             'CONTENT_LENGHTH': self.headers['Content-Length']
             })
-        res = action(form)
+        form_data = self.cgiFieldStorageToDict(form)
+        res = action(form_data)
+        print(res)
         self.send_response(200)
+        self.se
 
 def run_gui(port):
+    global gui
+    gui = GUI()
     httpd = HTTPServer(('localhost', port), HttpHandler)
-    print(f"Running Word Puncher on localhost port: {port}...")
-    httpd.serve_forever()
+    try:
+        httpd.handle_request()
+        httpd.serve_forever()
+        print(f"Running Word Puncher on localhost port: {port}...")
+    except KeyboardInterrupt:
+        print("shutting down")
+        httpd.socket.close()
 
 
 if __name__ == "__main__":
