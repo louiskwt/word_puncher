@@ -19,8 +19,23 @@ class HttpHandler(SimpleHTTPRequestHandler):
         pass
 
     def do_POST(self):
-        pass
-
+        path = self.path
+        action = {
+                '/ajax/upload-file': '',
+                '/ajax/upload-ans': '',
+                '/ajax/generate-exercise': '',
+                '/ajax/download': '',
+                }.get(path)
+        if not action:
+            return
+        form = cgi.FieldStorage(
+            fp=self.rfile,
+            headers=self.headers,
+            environ={'REQUEST_METHOD':'POST',
+             'CONTENT_TYPE':self.headers['Content-Type'],
+            })
+        res = action(form)
+        self.send_response(200)
 
 def run_gui(port):
     httpd = HTTPServer(('localhost', port), HttpHandler)
