@@ -41,13 +41,6 @@ class HttpHandler(SimpleHTTPRequestHandler):
             self.path = 'gui.html'
         return SimpleHTTPRequestHandler.do_GET(self)
 
-
-    def cgiFieldStorageToDict(self, fieldStorage):
-        """ Get a plain dictionary rather than the '.value' system used by the
-           cgi module's native fieldStorage class. """
-        print(fieldStorage.value)
-        return fieldStorage
-
     def do_POST(self):
         path = self.path
         action = {
@@ -65,11 +58,14 @@ class HttpHandler(SimpleHTTPRequestHandler):
              'CONTENT_TYPE':self.headers['Content-Type'],
              'CONTENT_LENGHTH': self.headers['Content-Length']
             })
+        print(form.getvalue("file"))
         form_data = self.cgiFieldStorageToDict(form)
         res = action(form_data)
         print(res)
         self.send_response(200)
-        self.se
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(b'File uploaded successfully!')
 
 def run_gui(port):
     global gui
