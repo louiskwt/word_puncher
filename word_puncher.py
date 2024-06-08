@@ -1,10 +1,4 @@
 import random, string
-COMMON_WORDS = {
-    'articles': ['a', 'an', 'the'],
-    'personal_pronouns': ['he', 'i', 'it', 'she', 'they', 'we', 'you', "he'd", "it'd", "she'd", "i'd", "they'd", "we'd", "you'd", "he's", "it's", "i'm", "she's", "they're", "we're", "you're", "i've", "they've", "we've", "you've"],
-    'demonstrative_pronouns': ['that', 'these', 'this', 'those', "that's", "these're", "this's", "those're", "that'd", "these'd", "this'd", "those'd"],
-    'interrogative_pronouns': ['what', 'which', 'who', 'whom', 'whose', "what'd", "which'd", "who'd", "what's", "which's", "who's", "what're", "which're", "who're", "what've", "which've", "who've"]
-}
 
 class Word_Puncher:
 
@@ -144,4 +138,10 @@ class Word_Puncher:
         >>> check_for_common_words(p)
         True
         """
+        COMMON_WORDS = {
+            'articles': ['a', 'an', 'the'],
+            'personal_pronouns': ['he', 'i', 'it', 'she', 'they', 'we', 'you', "he'd", "it'd", "she'd", "i'd", "they'd", "we'd", "you'd", "he's", "it's", "i'm", "she's", "they're", "we're", "you're", "i've", "they've", "we've", "you've"],
+            'demonstrative_pronouns': ['that', 'these', 'this', 'those', "that's", "these're", "this's", "those're", "that'd", "these'd", "this'd", "those'd"],
+            'interrogative_pronouns': ['what', 'which', 'who', 'whom', 'whose', "what'd", "which'd", "who'd", "what's", "which's", "who's", "what're", "which're", "who're", "what've", "which've", "who've"]
+        }
         return any([self.strip_punctuations(word.lower()) in COMMON_WORDS[key] for key in COMMON_WORDS])
