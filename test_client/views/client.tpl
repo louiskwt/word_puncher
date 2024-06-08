@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Puncher GUI</title>
+    <title>Word Puncher Test Client</title>
 </head>
 <body>
     <h1>Word Puncher GUI (for Testing Only)</h1>
