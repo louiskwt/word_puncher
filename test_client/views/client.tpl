@@ -16,7 +16,9 @@
     </form>
     <div>
         <h2>Output</h2>
-        <div id="output"></div>
+        <div id="output" style="height: 568px; width: 368px; border: 1px solid black;">
+            {{ output }}
+        </div>
     </div>
     <script src="assets/app.js"></script>
 </body>
