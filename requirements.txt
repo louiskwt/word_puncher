@@ -1,4 +1,5 @@
 blinker==1.8.2
+bottle==0.12.25
 click==8.1.7
 defusedxml==0.7.1
 fonttools==4.51.0
