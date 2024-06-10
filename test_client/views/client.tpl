@@ -12,11 +12,12 @@
         <br>
         <input type="file" id="text-file-upload" name="text-file" accept=".txt, .doc, .docx" />
         <br>
+        <br>
         <button type="submit">Upload File</button>
     </form>
     <div>
         <h2>Output</h2>
-        <div id="output" style="height: 568px; width: 368px; border: 1px solid black;">
+        <div id="output" style="height: 568px; width: 368px; border: 1px solid black; overflow: scroll;`">
             {{ output if output else ""}}
         </div>
     </div>
