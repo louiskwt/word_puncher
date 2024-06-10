@@ -18,7 +18,7 @@
     <div>
         <h2>Output</h2>
         <div id="output" style="height: 568px; width: 368px; border: 1px solid black; overflow: scroll;`">
-            {{ output if output else ""}}
+            {{ !output if output else ""}}
         </div>
     </div>
     <script src="assets/app.js"></script>
