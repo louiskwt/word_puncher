@@ -2,20 +2,20 @@ import random, string
 
 class Word_Puncher:
 
-    def punch_out_words(self, lines, word_len=1):
-        answer_key = []
-        for index in range(len(lines)):
-            inline_word_lst = lines[index].split()
-            if len(inline_word_lst) > 2:
-                targets = self.find_random_words(inline_word_lst, word_len)
-                target_keys = targets.keys()
-                answer_key.append(" ".join([targets[k] for k in target_keys]))
-                for i, word in targets.items():
-                    punctuations_in_word = self.find_punctuation(inline_word_lst[i])
-                    inline_word_lst[i] = punctuations_in_word["front"] + self.replace_word_with_blank(word) + punctuations_in_word['end'] 
-                inline_word_lst.insert(min(list(target_keys), key=lambda s: int(s)), "(" + str(index+1) +".)")
-            lines[index] = " ".join(inline_word_lst)
-        return [lines, self.format_answer_key(answer_key)]
+    # def punch_out_words(self, lines, word_len=1):
+    #     answer_key = []
+    #     for index in range(len(lines)):
+    #         inline_word_lst = lines[index].split()
+    #         if len(inline_word_lst) > 2:
+    #             targets = self.find_random_words(inline_word_lst, word_len)
+    #             target_keys = targets.keys()
+    #             answer_key.append(" ".join([targets[k] for k in target_keys]))
+    #             for i, word in targets.items():
+    #                 punctuations_in_word = self.find_punctuation(inline_word_lst[i])
+    #                 inline_word_lst[i] = punctuations_in_word["front"] + self.replace_word_with_blank(word) + punctuations_in_word['end'] 
+    #             inline_word_lst.insert(min(list(target_keys), key=lambda s: int(s)), "(" + str(index+1) +".)")
+    #         lines[index] = " ".join(inline_word_lst)
+    #     return [lines, self.format_answer_key(answer_key)]
 
     def generate_exercise_with_answer_keys(self, lines, selected_words):
         """
