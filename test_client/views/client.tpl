@@ -21,6 +21,6 @@
             {{ !output if output else ""}}
         </div>
     </div>
-    <script src="assets/app.js"></script>
+    <script type="text/javascript" src="/static/app.js"></script>
 </body>
 </html>

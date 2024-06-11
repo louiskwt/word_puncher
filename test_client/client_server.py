@@ -1,4 +1,4 @@
-from bottle import route, post, run, template, request
+from bottle import route, post, run, template, request, static_file
 from text_file_parser import TextFileParser
 from utils import strip_punctuations, find_punctuation
 
@@ -26,5 +26,10 @@ def upload_file():
         return template('client', output=''.join(output_data))
     else:
         return template('client', output="File output here")
+    
+
+@route('/static/<filename:path>')
+def send_static(filename):
+    return static_file(filename, root='./static/')
 
 run(host='localhost', port=8000, debug=True, reloader=True)
